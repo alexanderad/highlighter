@@ -7,8 +7,9 @@ from bottle import Bottle, request, run, template
 app = Bottle()
 redis = redis.StrictRedis()
 
-KEY = 'trnsl.1.1.20170318T185046Z.71fb45e0a4426d74.3da79b5e55569e3c36f8bb68caa94fc8c365ffa6'
+API_KEY = 'trnsl.1.1.20170318T185046Z.71fb45e0a4426d74.3da79b5e55569e3c36f8bb68caa94fc8c365ffa6'
 MAX_LENGTH = 128
+
 
 def translate_text(text):
     key = 'translated:text:{}'.format(text)
@@ -18,10 +19,12 @@ def translate_text(text):
 
     if not translated:
         url = 'https://translate.yandex.net/api/v1.5/tr.json/translate?key={}&lang=ro-en&text={}'
-        response = requests.get(url.format(KEY, text)).json()
+        response = requests.get(url.format(API_KEY, text)).json()
         if response.get('code') == httplib.OK:
             translated = response.get('text').pop()
-        redis.incrby('translated:count', len(text))
+
+        redis.incr('translated:count')
+        redis.incrby('translated:count_characters', len(text))
         redis.setnx('translated:text:{}'.format(text), translated)
         return {'success': True, 'text': translated, 'cache': 'miss'}
 
