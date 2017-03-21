@@ -11,6 +11,9 @@ def create_app():
     app = BottleExt()
     app.config.load_config(os.path.join(dir_path, 'app.conf'))
     app.config.load_config(os.path.join(dir_path, 'app.dev.conf'))
+
+    # if os.getenv('PROD'):
+#     print
     app.config.load_config(os.path.join(dir_path, 'app.prod.conf'))
 
     if os.getenv('CI'):
