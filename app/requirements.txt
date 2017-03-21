@@ -1,3 +1,7 @@
 bottle
-requests
+marshmallow
+requests-oauthlib
+google-api-python-client
+Beaker
+Paste
 redis

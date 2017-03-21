@@ -1,0 +1,13 @@
+version: 2
+ services:
+   db:
+     image: redis
+     volumes:
+      - ./data:/data
+   app:
+     build: .
+     command: python manage.py
+     ports:
+       - 8000:8000
+     depends_on:
+       - db
