@@ -18,10 +18,6 @@ html {
     margin: 100 auto;
 }
 
-.tooltip {
-    position: relative;
-    display: inline-block;
-}
 
 .highlight-underline {
     position: relative;
@@ -35,6 +31,11 @@ html {
     left: 0;
     bottom: 2px;
     border-bottom: 4px solid #FFD84D;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
 }
 
 .tooltip .tooltiptext {
@@ -55,6 +56,7 @@ html {
     left: 50%;
     /*margin-left: -60px;*/
     white-space: nowrap;
+    cursor: default;
 }
 
 .tooltip .tooltiptext::after {

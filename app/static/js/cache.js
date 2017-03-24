@@ -1,4 +1,3 @@
-// simple filo-style cache :-)
 var Cache = function (maxSize) {
     this._keys = [];
     this._items = {};
@@ -30,4 +29,4 @@ Cache.prototype = {
     hasKey: function (key) {
         return this._items.hasOwnProperty(key);
     }
-}
+};

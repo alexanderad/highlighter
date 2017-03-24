@@ -22,14 +22,14 @@ def translate_text(text):
     else:
         return {'success': False, 'error': response}
 
-    app.redis.incr('translated:count')
-    app.redis.incrby('translated:count_characters', len(text))
+    app.redis.incr('counter:translate_requests')
+    app.redis.incrby('counter:translated_characters', len(text))
     app.redis.setnx('translated:text:{}'.format(text), translated)
 
     return {'success': True, 'text': translated, 'cache': 'miss'}
 
 
-@app.route('/v1/translate')
+@app.route('/v1/translate', method='POST')
 def translate():
     text = request.params.get('text')
     if text is None:
