@@ -1,5 +1,8 @@
 <html>
     <head>
+        <title>Highlighter</title>
+        <link rel="icon" type="image/png" href="/static/icons/favicon.png" />
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="/static/js/index.js"></script>
 
