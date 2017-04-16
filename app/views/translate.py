@@ -10,12 +10,14 @@ def translate_text(text):
     if translated:
         return {'success': True, 'text': translated, 'cache': 'hit'}
 
-    url = (
-        'https://translate.yandex.net/api/v1.5/tr.json/translate?'
-        'key={}&lang=ro-en&text={}'
-    )
     response = requests.get(
-        url.format(app.config['yandex.api_key'], text)).json()
+        app.config['yandex.translate_endpoint'],
+        params=dict(
+            key=app.config['yandex.api_key'],
+            lang='ro-en',
+            text=text
+        )
+    ).json()
 
     if response.get('code') == httplib.OK:
         translated = response.get('text').pop()

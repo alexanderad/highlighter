@@ -1,14 +1,15 @@
 import httplib
+import shortid
 import requests
 
 from .. import app, request
 
 
 def parse_page(url):
-    key = 'translated:text:{}'.format(text)
-    translated = app.redis.get(key)
-    if translated:
-        return {'success': True, 'text': translated, 'cache': 'hit'}
+    key = 'parsed:url:{}'.format(url)
+    page_id = app.redis.get(key)
+    if page_id:
+        return {'success': True, 'page_id': page_id, 'cache': 'hit'}
 
     response = requests.get(
         app.config['mercury.parser_endpoint'],
@@ -16,16 +17,20 @@ def parse_page(url):
         headers={'x-api-key': app.config['mercury.api_key']}
     )
 
-    if response.get('code') == httplib.OK:
-        translated = response.get('text').pop()
-    else:
+    if response.status_code != httplib.OK:
         return {'success': False, 'error': response}
 
-    app.redis.incr('counter:translate_requests')
-    app.redis.incrby('counter:translated_characters', len(text))
-    app.redis.setnx('translated:text:{}'.format(text), translated)
+    page_id = shortid.ShortId().generate()
+    data = response.json()
 
-    return {'success': True, 'text': translated, 'cache': 'miss'}
+    app.redis.incr('counter:parse_requests')
+    app.redis.set('parsed:url:{}'.format(url), page_id)
+    app.redis.set('parsed:title:{}'.format(page_id), data['title'])
+    app.redis.set('parsed:content:{}'.format(page_id), data['content'])
+    app.redis.set('parsed:image:{}'.format(page_id), data['lead_image_url'])
+    app.redis.set('parsed:domain:{}'.format(page_id), data['domain'])
+
+    return {'success': True, 'page_id': page_id, 'cache': 'miss'}
 
 
 @app.route('/v1/parse', method='POST')
@@ -34,6 +39,4 @@ def parse():
     if url is None:
         return {'success': False, 'error': 'no url given'}
 
-    page = parse_page(url)
-
-    return redi
+    return parse_page(url)
