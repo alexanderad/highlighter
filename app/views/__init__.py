@@ -2,3 +2,4 @@
 from .static import *
 from .index import *
 from .translate import *
+from .parse import *

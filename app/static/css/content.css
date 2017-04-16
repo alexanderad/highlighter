@@ -16,6 +16,7 @@ html {
     text-align: justify;
     width: 900px;
     margin: 100 auto;
+    /*white-space: pre-line;*/
 }
 
 

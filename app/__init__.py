@@ -1,7 +1,7 @@
 import os
 
 import redis
-from bottle import request, response, template, static_file
+from bottle import request, response, redirect, template, static_file
 from .ext.app import BottleExt
 
 

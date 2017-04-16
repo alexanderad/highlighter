@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <div id="id-translatable" class="container" style="white-space: pre; display: block; unicode-bidi: embed">
+        <div id="id-translatable" class="container">
             CAPITOLUL I
 1
 De aproape cincizeci de ani, orologiul cel mare din turnul şcolii
