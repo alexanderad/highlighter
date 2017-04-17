@@ -11,6 +11,7 @@
 * `pages:<page_id>:image` -- lead `image` of page with `page_id`
 * `pages:<page_id>:domain` -- `domain` of page with `page_id`
 * `pages:<page_id>:next_page_url` -- `next_page_url` of page with `page_id` (if any)
+* `pages:<page_id>:views` -- number of views for page with `page_id`
 
 ## Scoreboards
 * `pages:recent` -- list of recent pages added
@@ -19,3 +20,4 @@
 * `counters:requests:translate` -- number of translate requests
 * `counters:requests:parse` -- number of parse requests
 * `counters:characters:translated` -- number of translate characters (to track API limits)
+* `counters:<view>:views` -- number of views for `view`
