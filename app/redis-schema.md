@@ -5,7 +5,7 @@
 
 ## Page Tree
 * `pages:<md5(url)>:page_id` -- `url` to `page_id` mapping
-* `pages:<page_id>:url` -- source `url` to for `page_id`
+* `pages:<page_id>` -- source url for `page_id`
 * `pages:<page_id>:title` -- `title` of page with `page_id`
 * `pages:<page_id>:content` -- `content` of page with `page_id`
 * `pages:<page_id>:image` -- lead `image` of page with `page_id`

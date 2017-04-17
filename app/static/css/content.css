@@ -16,9 +16,7 @@ html {
     text-align: justify;
     width: 900px;
     margin: 100 auto;
-    /*white-space: pre-line;*/
 }
-
 
 .highlight-underline {
     position: relative;
@@ -69,4 +67,22 @@ html {
     border-width: 5px;
     border-style: solid;
     border-color: #FFD84D transparent transparent transparent;
+}
+
+.block-80vh {
+    height: 80vh;
+}
+
+.block-95vh {
+    height: 95vh;
+}
+
+.material-icons{
+    display: inline-flex;
+    vertical-align: top;
+}
+
+.tiny-icon-align {
+    line-height: 23px;
+    font-size: 15px;
 }

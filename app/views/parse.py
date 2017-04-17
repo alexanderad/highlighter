@@ -5,10 +5,10 @@ from .. import app, request
 from ..misc import hashies
 
 
-@app.route('/v1/parse', method='GET')
+@app.route('/v1/parse', method='POST')
 def parse():
-    url = request.params.get('url')
-    if url is None:
+    url = request.params.get('url').strip()
+    if not url:
         return {'success': False, 'error': 'no url given'}
 
     url_hash = hashies.md5(url)
@@ -17,28 +17,29 @@ def parse():
     if page_id:
         return {'success': True, 'page_id': page_id, 'cache': 'hit'}
 
-    response = requests.get(
+    data = requests.get(
         app.config['mercury.parser_endpoint'],
         params=dict(url=url),
         headers={'x-api-key': app.config['mercury.api_key']}
-    )
+    ).json()
 
-    if response.status_code != httplib.OK:
-        return {'success': False, 'error': response}
+    if data.get('error'):
+        return {'success': False, 'error': data['messages']}
 
-    page_id, data = hashies.short_id(), response.json()
+    page_id = hashies.short_id()
 
     # counters
     app.redis.incr('counters:requests:parse')
 
     # data
     app.redis.set(key, page_id)
-    app.redis.set('pages:{}:url'.format(page_id), url)
-    app.redis.set('pages:{}:title'.format(page_id), data['title'])
-    app.redis.set('pages:{}:content'.format(page_id), data['content'])
-    app.redis.set('pages:{}:image'.format(page_id), data['lead_image_url'])
-    app.redis.set('pages:{}:domain'.format(page_id), data['domain'])
-    app.redis.set('pages:{}:next_page_url'.format(page_id), data['next_page_url'])
     app.redis.lpush('pages:recent', page_id)
+    app.redis.set('pages:{}'.format(page_id), url)
+    app.redis.set('pages:{}:title'.format(page_id), data.get('title'))
+    app.redis.set('pages:{}:content'.format(page_id), data.get('content'))
+    app.redis.set('pages:{}:image'.format(page_id), data.get('lead_image_url'))
+    app.redis.set('pages:{}:domain'.format(page_id), data.get('domain'))
+    app.redis.set(
+        'pages:{}:next_page_url'.format(page_id), data.get('next_page_url'))
 
     return {'success': True, 'page_id': page_id, 'cache': 'miss'}

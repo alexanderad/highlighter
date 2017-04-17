@@ -59,5 +59,4 @@ $(function () {
         window.getSelection().empty();
 
     }
-
 });

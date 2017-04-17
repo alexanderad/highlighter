@@ -9,7 +9,7 @@ from ..misc import hashies
 @app.route('/v1/translate', method='POST')
 def translate():
     text = request.params.get('text')
-    if text is None:
+    if not text:
         return {'success': False, 'error': 'no text given'}
 
     if len(text) > 128:
