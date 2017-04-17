@@ -4,6 +4,17 @@ html {
     line-height: 2.2;
 }
 
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
 ::selection {
     background: #FFD84D;
 }
@@ -38,22 +49,19 @@ html {
 }
 
 .tooltip .tooltiptext {
-    /*visibility: hidden;*/
     opacity: 1;
-    /*width: 120px;*/
     background-color: #FFD84D;
     color: black;
     line-height: 1.0;
-    font-size: 60%;
+    font-size: 50%;
     font-weight: bold;
     text-align: center;
     border-radius: 6px;
-    padding: 2px 0;
+    padding: 5px;
     position: absolute;
     z-index: 1;
     bottom: 80%;
     left: 50%;
-    /*margin-left: -60px;*/
     white-space: nowrap;
     cursor: default;
 }
@@ -85,4 +93,14 @@ html {
 .tiny-icon-align {
     line-height: 23px;
     font-size: 15px;
+}
+
+.btn-tiny i {
+    font-size: 55%;
+    line-height: 12px;
+}
+
+.btn-tiny {
+    height: 12px;
+    width: 12px;
 }

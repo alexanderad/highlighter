@@ -15,9 +15,9 @@
     </head>
 
     <body>
-
-        {{! base }}
-
+        <header></header>
+        <main>{{! base }}</main>
+        <footer></footer>
     </body>
 
 </html>

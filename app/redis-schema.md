@@ -17,7 +17,5 @@
 * `pages:recent` -- list of recent pages added
 
 ## Counters Tree
-* `counters:requests:translate` -- number of translate requests
-* `counters:requests:parse` -- number of parse requests
+* `counters:requests:<view>` -- number of requests served by `view`
 * `counters:characters:translated` -- number of translate characters (to track API limits)
-* `counters:<view>:views` -- number of views for `view`

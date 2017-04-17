@@ -5,12 +5,13 @@ $(function () {
     });
 
     $(document).on('text:translated', function (event, text, translated, selectionId) {
-        var tooltip = $('<span class="tooltiptext"></span>').text(translated || text);
+        var tooltip = $('<span class="tooltiptext z-depth-1 valign-wrapper center-align"></span>').text(translated || text);
+        tooltip.append('&nbsp;<a class="btn-floating btn-tiny waves-effect waves-light orange"><i class="material-icons">done</i></a>');
         $('#' + selectionId).append(tooltip);
 
         var tooltipClientWidth = tooltip.get(0).clientWidth;
-        tooltip.css('width', tooltipClientWidth + 10);
-        tooltip.css('margin-left', -(tooltipClientWidth + 10) / 2);
+        tooltip.css('width', tooltipClientWidth);
+        tooltip.css('margin-left', -(tooltipClientWidth) / 2);
     });
 
     $(document).on('text:selected', function (event, text, selection, range) {
@@ -18,6 +19,7 @@ $(function () {
         var tooltip = $(
             '<span class="tooltip highlight-underline"></span>'
         ).attr('id', selectionId).get(0);
+
         $(tooltip).on('click', function (event) {
             $(document).trigger('tooltip:clicked', [event]);
         });
