@@ -1,9 +1,8 @@
 import httplib
-import hashlib
 import requests
 
-from .. import app, request
-from ..misc import hashies
+from app import app, request
+from app.misc import hashies
 
 
 @app.route('/v1/translate', method='POST')

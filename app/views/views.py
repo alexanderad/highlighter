@@ -1,4 +1,4 @@
-from .. import app, template, request, redirect
+from app import app, template, request, redirect
 
 
 @app.route('/')

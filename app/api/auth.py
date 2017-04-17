@@ -1,9 +1,9 @@
 from requests_oauthlib import OAuth2Session
 
-from .. import app, request
-from ..ext import decorators
-from ..models import User
-from ..schemas import AuthTokenSchema
+from app import app, request
+from app.ext import decorators
+from app.models import User
+from app.schemas import AuthTokenSchema
 
 
 @app.route('/v1/auth/url')

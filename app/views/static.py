@@ -1,6 +1,6 @@
 import os
 
-from .. import app, static_file
+from .. import app, request, static_file
 
 
 @app.route('/static/<file_path:path>')

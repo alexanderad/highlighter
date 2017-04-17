@@ -1,8 +1,8 @@
-import httplib
 import requests
 
-from .. import app, request
-from ..misc import hashies
+from app import app, request
+from app.misc import hashies
+from app.misc.vacuum import VacuumCleaner
 
 
 @app.route('/v1/parse', method='POST')
@@ -27,6 +27,7 @@ def parse():
         return {'success': False, 'error': data['messages']}
 
     page_id = hashies.short_id()
+    content = VacuumCleaner(data.get('content')).apply_all()
 
     # counters
     app.redis.incr('counters:requests:parse')
@@ -36,7 +37,7 @@ def parse():
     app.redis.lpush('pages:recent', page_id)
     app.redis.set('pages:{}'.format(page_id), url)
     app.redis.set('pages:{}:title'.format(page_id), data.get('title'))
-    app.redis.set('pages:{}:content'.format(page_id), data.get('content'))
+    app.redis.set('pages:{}:content'.format(page_id), content)
     app.redis.set('pages:{}:image'.format(page_id), data.get('lead_image_url'))
     app.redis.set('pages:{}:domain'.format(page_id), data.get('domain'))
     app.redis.set(

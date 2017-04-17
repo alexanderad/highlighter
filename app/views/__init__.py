@@ -1,5 +1,3 @@
-# from .auth import *
 from .static import *
-from .index import *
-from .translate import *
-from .parse import *
+from .views import *
+from .proxy import *

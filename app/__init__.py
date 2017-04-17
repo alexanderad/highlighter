@@ -1,7 +1,7 @@
 import os
 
 import redis
-from bottle import request, response, redirect, template, static_file
+from bottle import abort, request, response, redirect, template, static_file
 from .ext.app import BottleExt
 
 
@@ -29,3 +29,4 @@ def create_app():
 app = create_app()
 from .ext import hooks
 from . import views
+from . import api
