@@ -2,7 +2,7 @@ import requests
 
 from app import app, request
 from app.misc import hashies
-from app.misc.vacuum import VacuumCleaner
+from app.misc.vacuum import Vacuum
 
 
 @app.route('/v1/parse', method='POST')
@@ -27,7 +27,11 @@ def parse():
         return {'success': False, 'error': data['messages']}
 
     page_id = hashies.short_id()
-    content = VacuumCleaner(data.get('content')).apply_all()
+    content = Vacuum(
+        data.get('content'),
+        salt=app.config['app.secret'],
+        https_proxy=app.config['app.https_proxy']
+    ).apply_all()
 
     # counters
     app.redis.incr('counters:requests:parse')
