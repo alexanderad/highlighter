@@ -17,5 +17,13 @@
     <div id="id-translatable">
         {{! content }}
     </div>
+    <div class="row tiny-font">
+        <div class="col s6">
+            Highlighter
+        </div>
+        <div class="col s6 right-align">
+            <a href="http://translate.yandex.com/">translations powered by Yandex.Translate</a>
+        </div>
+    </div>
 </div>
 
