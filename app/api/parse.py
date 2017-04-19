@@ -14,6 +14,7 @@ def detect_language(excerpt):
             text=excerpt
         )
     ).json()
+    app.redis.incr('counters:requests:detect_language')
     if response.get('code') == httplib.OK:
         return response.get('lang')
 

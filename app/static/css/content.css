@@ -90,9 +90,12 @@ main {
     vertical-align: top;
 }
 
+.tiny-font {
+    font-size: 15px;
+}
+
 .tiny-icon-align {
     line-height: 23px;
-    font-size: 15px;
 }
 
 .btn-tiny i {

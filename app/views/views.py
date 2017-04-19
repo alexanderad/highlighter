@@ -35,7 +35,7 @@ def read():
     app.redis.incr('{}:views'.format(root_key))
     page = {
         key: app.redis.get('{}:{}'.format(root_key, key))
-        for key in ('title', 'domain', 'content', 'next_page_url')
+        for key in ('title', 'domain', 'content', 'next_page_url', 'lang')
     }
 
     return template('read', url=url, **page)
