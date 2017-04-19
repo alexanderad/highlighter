@@ -6,3 +6,5 @@ Beaker
 waitress
 redis
 shortid
+bs4
+lxml

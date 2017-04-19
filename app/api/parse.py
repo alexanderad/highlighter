@@ -1,8 +1,21 @@
+import httplib
 import requests
 
 from app import app, request
 from app.misc import hashies
 from app.misc.vacuum import Vacuum
+
+
+def detect_language(excerpt):
+    response = requests.get(
+        app.config['yandex.detect_endpoint'],
+        params=dict(
+            key=app.config['yandex.api_key'],
+            text=excerpt
+        )
+    ).json()
+    if response.get('code') == httplib.OK:
+        return response.get('lang')
 
 
 @app.route('/v1/parse', method='POST')
@@ -27,11 +40,7 @@ def parse():
         return {'success': False, 'error': data['messages']}
 
     page_id = hashies.short_id()
-    content = Vacuum(
-        data.get('content'),
-        salt=app.config['app.secret'],
-        https_proxy=app.config['app.https_proxy']
-    ).apply_all()
+    content = Vacuum(data.get('content')).apply_all()
 
     # counters
     app.redis.incr('counters:requests:parse')
@@ -44,6 +53,8 @@ def parse():
     app.redis.set('pages:{}:content'.format(page_id), content)
     app.redis.set('pages:{}:image'.format(page_id), data.get('lead_image_url'))
     app.redis.set('pages:{}:domain'.format(page_id), data.get('domain'))
+    app.redis.set(
+        'pages:{}:lang'.format(page_id), detect_language(data.get('excerpt')))
     app.redis.set(
         'pages:{}:next_page_url'.format(page_id), data.get('next_page_url'))
 
