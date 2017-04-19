@@ -1,6 +1,6 @@
 $(function () {
 
-    $('#id-translatable').on('mouseup', function () {
+    $('.translatable').on('mouseup', function () {
         processSelection();
     });
 
