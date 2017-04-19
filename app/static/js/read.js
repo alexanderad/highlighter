@@ -6,7 +6,7 @@ $(function () {
 
     $(document).on('text:translated', function (event, text, translated, selectionId) {
         var tooltip = $('<span class="tooltiptext z-depth-1 valign-wrapper center-align"></span>').text(translated || text);
-        tooltip.append('&nbsp;<a class="btn-floating btn-tiny waves-effect waves-light orange"><i class="material-icons">done</i></a>');
+        // tooltip.append('&nbsp;<a class="btn-floating btn-tiny waves-effect waves-light orange"><i class="material-icons">done</i></a>');
         $('#' + selectionId).append(tooltip);
 
         var tooltipClientWidth = tooltip.get(0).clientWidth;
