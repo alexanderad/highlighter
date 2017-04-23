@@ -1,5 +1,4 @@
 import httplib
-import urllib
 import requests
 
 from app import app, request

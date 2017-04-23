@@ -26,7 +26,7 @@ main {
 .container {
     text-align: justify;
     width: 900px;
-    margin: 100 auto;
+    margin-top: 20px;
 }
 
 .highlight-underline {
@@ -41,6 +41,10 @@ main {
     left: 0;
     bottom: 2px;
     border-bottom: 4px solid #FFD84D;
+}
+
+.highlight {
+    background: #FFD84D;
 }
 
 .tooltip {
@@ -77,14 +81,6 @@ main {
     border-color: #FFD84D transparent transparent transparent;
 }
 
-.block-80vh {
-    height: 80vh;
-}
-
-.block-95vh {
-    height: 95vh;
-}
-
 .material-icons {
     display: inline-flex;
     vertical-align: top;
@@ -103,4 +99,12 @@ main {
 
 .tiny-font {
     font-size: 0.65rem;
+}
+
+.almost-full-page {
+    min-height: 85vh;
+}
+
+.full-page {
+    min-height: 95vh;
 }

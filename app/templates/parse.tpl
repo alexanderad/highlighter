@@ -1,6 +1,6 @@
 % rebase('base.tpl', title='Parsing...', page_script='parse.js')
 
-<div class="row valign-wrapper block-95vh">
+<div class="row valign-wrapper full-page">
     <div class="col s5"></div>
 
     <div class="col s2 center-align">
