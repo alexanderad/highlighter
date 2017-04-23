@@ -5,27 +5,21 @@ from app import app, request
 from app.misc import hashies
 
 
-DESTS = {
+LANGS = {
     'en': 'English',
     'uk': 'Ukrainian',
     'ru': 'Russian',
     'ro': 'Romanian'
 }
-ADDITIONAL_DESTS = {
-    # 'en': {
-    #     'def': 'Definitions'
-    # }
-}
 
 
 def get_dest_langs(source_lang):
-    dest_langs = {
+    return {
         code: lang
-        for code, lang in DESTS.items()
+        for code, lang in LANGS.items()
         if code != source_lang
     }
-    dest_langs.update(ADDITIONAL_DESTS.get(source_lang, {}))
-    return dest_langs
+
 
 @app.route('/v1/translate', method='POST')
 def translate():
