@@ -1,4 +1,5 @@
 $(function () {
+    var source_lang, dest_lang;
 
     $('.translatable').on('mouseup', function () {
         processSelection();
@@ -29,13 +30,18 @@ $(function () {
     });
 
     $(document).on('text:wrapped', function (event, text, selectionId) {
-        $.post('/v1/translate', {'text': text}, function (response) {
+        $.post('/v1/translate', {'text': text, 'source_lang': source_lang, 'dest_lang': dest_lang}, function (response) {
             if (response.success) {
                 $(document).trigger('text:translated', [text, response.text, selectionId]);
             } else {
                 console.log(response);
             }
         });
+    });
+
+    $(document).on('text:announced_langs', function (event, announced_source_lang, announced_dest_lang) {
+       source_lang = announced_source_lang;
+       dest_lang = announced_dest_lang;
     });
 
     $(document).on('tooltip:clicked', function(event, click_event) {

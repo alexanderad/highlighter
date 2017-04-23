@@ -16,8 +16,8 @@
           </a>
 
           <ul id="dropdown-langs" class="dropdown-content">
-            % for code, lang in dest_langs.items():
-                <li><a href="/read?t={{ page_id }}&l={{ code }}">{{ lang }}</a></li>
+            % for dest_langs_code, dest_langs_lang in dest_langs.items():
+                <li><a href="/read?t={{ page_id }}&d={{ dest_langs_code }}">{{ dest_langs_lang }}</a></li>
             % end
           </ul>
 
@@ -35,4 +35,8 @@
         </div>
     </div>
 </div>
-
+<script>
+    $(function () {
+        $(document).trigger('text:announced_langs', ['{{ lang }}', '{{ dest_lang }}']);
+    })
+</script>

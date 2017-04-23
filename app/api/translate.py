@@ -31,7 +31,8 @@ def translate():
         return {'success': False, 'error': 'text is too long'}
 
     # set in stone for now
-    source_lang, dest_lang = 'ro', 'en'
+    source_lang = request.params.get('source_lang')
+    dest_lang = request.params.get('dest_lang')
 
     text_hash = hashies.md5(text)
 

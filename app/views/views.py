@@ -44,7 +44,7 @@ def read():
     context['url'] = url
     context['dest_langs'] = get_dest_langs(context['lang'])
 
-    dest_lang = request.params.get('l')
+    dest_lang = request.params.get('d')
     if not dest_lang or dest_lang not in context['dest_langs']:
         dest_lang = 'en'
 
