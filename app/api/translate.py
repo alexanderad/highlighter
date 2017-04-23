@@ -5,6 +5,28 @@ from app import app, request
 from app.misc import hashies
 
 
+DESTS = {
+    'en': 'English',
+    'uk': 'Ukrainian',
+    'ru': 'Russian',
+    'ro': 'Romanian'
+}
+ADDITIONAL_DESTS = {
+    # 'en': {
+    #     'def': 'Definitions'
+    # }
+}
+
+
+def get_dest_langs(source_lang):
+    dest_langs = {
+        code: lang
+        for code, lang in DESTS.items()
+        if code != source_lang
+    }
+    dest_langs.update(ADDITIONAL_DESTS.get(source_lang, {}))
+    return dest_langs
+
 @app.route('/v1/translate', method='POST')
 def translate():
     text = request.params.get('text')
@@ -25,7 +47,7 @@ def translate():
         return {'success': True, 'text': translated, 'cache': 'hit'}
 
     response = requests.get(
-        app.config['yandex.translate_endpoint'],
+        '{}/translate'.format(app.config['yandex.endpoint']),
         params=dict(
             key=app.config['yandex.api_key'],
             lang='{}-{}'.format(source_lang, dest_lang),

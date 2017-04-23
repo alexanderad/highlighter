@@ -1,4 +1,5 @@
 from app import app, template, request, redirect
+from app.api.translate import get_dest_langs
 
 
 @app.route('/')
@@ -33,11 +34,20 @@ def read():
         return redirect('/')
 
     app.redis.incr('{}:views'.format(root_key))
-    page = {
+    context = {
         key: app.redis.get('{}:{}'.format(root_key, key))
         for key in (
             'title', 'domain', 'content', 'next_page_url', 'lang'
         )
     }
+    context['page_id'] = page_id
+    context['url'] = url
+    context['dest_langs'] = get_dest_langs(context['lang'])
 
-    return template('read', url=url, **page)
+    dest_lang = request.params.get('l')
+    if not dest_lang or dest_lang not in context['dest_langs']:
+        dest_lang = 'en'
+
+    context['dest_lang'] = dest_lang
+
+    return template('read', **context)

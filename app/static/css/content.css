@@ -85,25 +85,18 @@ main {
     height: 95vh;
 }
 
-.material-icons{
+.material-icons {
     display: inline-flex;
     vertical-align: top;
 }
 
-.tiny-font {
-    font-size: 15px;
+.btn-sm {
+    height: 24px;
+    line-height: 24px;
+    font-size: 0.65rem;
+    padding: 0 0.5rem;
 }
 
-.tiny-icon-align {
-    line-height: 23px;
-}
-
-.btn-tiny i {
-    font-size: 55%;
-    line-height: 12px;
-}
-
-.btn-tiny {
-    height: 12px;
-    width: 12px;
+.btn-sm i {
+    font-size: 0.65rem;
 }

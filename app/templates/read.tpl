@@ -8,10 +8,19 @@
     </div>
     <div class="row">
         <div class="col s6">
-            <i class="tiny material-icons">launch</i><span class="tiny-font tiny-icon-align">&nbsp;<a href="{{ url }}">{{ domain }}</a></span>
+            <a class="btn-flat btn-sm" href="{{ url }}"><i class="material-icons icons-sm">launch</i> {{ domain }}</a>
         </div>
         <div class="col s6 right-align">
-            <i class="tiny material-icons">translate</i><span class="tiny-font tiny-icon-align">&nbsp;{{ lang }} &rightarrow; en</span>
+          <a class="dropdown-button btn-flat btn-sm" data-beloworigin="true" href="#" data-activates="dropdown-langs">
+              <i class="material-icons icons-sm">translate</i> {{ lang }} &rightarrow; {{ dest_lang }}
+          </a>
+
+          <ul id="dropdown-langs" class="dropdown-content">
+            % for code, lang in dest_langs.items():
+                <li><a href="/read?t={{ page_id }}&l={{ code }}">{{ lang }}</a></li>
+            % end
+          </ul>
+
         </div>
     </div>
     <div class="translatable">

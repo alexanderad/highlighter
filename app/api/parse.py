@@ -8,7 +8,7 @@ from app.misc.vacuum import Vacuum
 
 def detect_language(excerpt):
     response = requests.get(
-        app.config['yandex.detect_endpoint'],
+        '{}/detect'.format(app.config['yandex.endpoint']),
         params=dict(
             key=app.config['yandex.api_key'],
             text=excerpt
