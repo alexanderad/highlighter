@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Highlighter",
-  "description": "Sends the page to Highlighter.",
-  "version": "0.1",
+  "version": "1.0",
+  "description": "Sends current page to the Highlighter.",
   "icons": {
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
@@ -12,6 +12,7 @@
     "default_title": "Click to send this page to Highlighter!"
   },
   "background": {
+    "persistent": false,
     "scripts": ["background.js"]
   }
 }

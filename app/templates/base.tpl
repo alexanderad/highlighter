@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>{{ title or "Highlighter" }}</title>
+        <meta name="google-site-verification" content="r1LHlKhkRqTazdrmL3UfPnkmYn2ESmrTDA0K5IPoLjc" />
         <link rel="icon" type="image/png" href="/static/icons/favicon.png" />
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
         <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
