@@ -8,7 +8,6 @@ from app.misc import hashies
 LANGS = {
     'en': 'English',
     'uk': 'Ukrainian',
-    'ru': 'Russian',
     'ro': 'Romanian'
 }
 

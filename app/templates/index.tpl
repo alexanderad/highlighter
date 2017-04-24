@@ -2,7 +2,6 @@
 
 <div class="row valign-wrapper almost-full-page">
     <div class="col s2"></div>
-
     <div class="col s8">
         <div class="row center-align">
             <h3>High<span class="highlight">light</span>er</h3>
@@ -14,7 +13,7 @@
                       <form>
                         <div class="input-field">
                           <input id="id-article-url" name="u" type="search" autocomplete="false">
-                          <label class="label-icon" for="id-article-url"><i class="material-icons">launch</i></label>
+                          <label class="label-icon" for="id-article-url"><i class="material-icons">link</i></label>
                         </div>
                       </form>
                     </div>
@@ -22,8 +21,14 @@
             </form>
         </div>
     </div>
-
     <div class="col s2"></div>
+</div>
+<div class="row">
+    <div class="col s12 center-align">
+        <a class="btn btn-flat btn-sm waves-effect waves-light" href="https://chrome.google.com/webstore/detail/highlighter/jgpefkfmeadeefefhnehncpbnaopfkbc">
+          <i class="material-icons icons-sm">extension</i> add to chrome
+        </a>
+    </div>
 </div>
 <script>
     $(function () {
