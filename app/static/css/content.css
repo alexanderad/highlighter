@@ -108,3 +108,8 @@ main {
 .full-page {
     min-height: 95vh;
 }
+
+nav .input-field label i {
+    color: #444;
+    transition: none;
+}
