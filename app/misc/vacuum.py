@@ -7,6 +7,9 @@ class Vacuum(object):
         'div.article-share',
         'div.ad-container',
         'iframe',
+
+        'p.content-meta',
+        'a.btn.is-fb',
     )
 
     def __init__(self, html):
