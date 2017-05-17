@@ -38,8 +38,8 @@ def parse():
         headers={'x-api-key': app.config['mercury.api_key']}
     ).json()
 
-    if data.get('error'):
-        return {'success': False, 'error': data['messages']}
+    if data.get('errorMessage'):
+        return {'success': False, 'error': data['errorMessage']}
 
     page_id = hashies.short_id()
     content = Vacuum(data.get('content')).apply_all()
