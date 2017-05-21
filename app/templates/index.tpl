@@ -24,14 +24,32 @@
     <div class="col s2"></div>
 </div>
 <div class="row">
-    <div class="col s12 center-align">
-        <a class="btn btn-flat btn-sm waves-effect waves-light" href="https://chrome.google.com/webstore/detail/highlighter/jgpefkfmeadeefefhnehncpbnaopfkbc">
-          <i class="material-icons icons-sm">extension</i> add to chrome
+    <div id="id-add-extension" class="col s12 center-align hidden">
+        <a id="id-add-extension-a" class="btn btn-flat btn-sm waves-effect waves-light" href="#">
+          <i class="material-icons icons-sm">extension</i>
         </a>
     </div>
 </div>
 <script>
+    function createExtensionLink() {
+        var isChrome = !!window.chrome;
+        var isFirefox = typeof InstallTrigger !== 'undefined';
+
+        if (isChrome) {
+            $('#id-add-extension-a').attr('href', 'https://chrome.google.com/webstore/detail/highlighter/jgpefkfmeadeefefhnehncpbnaopfkbc');
+            $('#id-add-extension-a').append('add to chrome');
+        }
+
+        if (isFirefox) {
+            $('#id-add-extension-a').attr('href', 'https://addons.mozilla.org/en-US/firefox/addon/highlighter-read-assistant/');
+            $('#id-add-extension-a').append('add to firefox');
+        }
+
+        if (isFirefox || isChrome) $('#id-add-extension').fadeIn();
+    }
+
     $(function () {
         $('#id-article-url').focus();
+        createExtensionLink();
     })
 </script>
