@@ -4,18 +4,21 @@
     <div class="col s2"></div>
     <div class="col s8">
         <div class="row center-align">
-            <h3>High<span class="highlight">light</span>er</h3>
+            <h3>High
+                <span class="highlight">light</span>er</h3>
         </div>
         <div class="row">
             <form action="/parse" method="GET">
                 <nav class="white">
                     <div class="nav-wrapper">
-                      <form>
-                        <div class="input-field">
-                          <input id="id-article-url" name="u" type="search" autocomplete="false">
-                          <label class="label-icon" for="id-article-url"><i class="material-icons">link</i></label>
-                        </div>
-                      </form>
+                        <form>
+                            <div class="input-field">
+                                <input id="id-article-url" name="u" type="search" autocomplete="false" placeholder="paste page or article address">
+                                <label class="label-icon" for="id-article-url">
+                                    <i class="material-icons">link</i>
+                                </label>
+                            </div>
+                        </form>
                     </div>
                 </nav>
             </form>
@@ -26,7 +29,7 @@
 <div class="row">
     <div id="id-add-extension" class="col s12 center-align hidden">
         <a id="id-add-extension-a" class="btn btn-flat btn-sm waves-effect waves-light" href="#">
-          <i class="material-icons icons-sm">extension</i>
+            <i class="material-icons icons-sm">extension</i>
         </a>
     </div>
 </div>
@@ -41,7 +44,7 @@
         }
 
         if (isFirefox) {
-            $('#id-add-extension-a').attr('href', 'https://addons.mozilla.org/en-US/firefox/addon/highlighter-read-assistant/');
+            $('#id-add-extension-a').attr('href', '/static/etc/highlighter-1.3.2.xpi');
             $('#id-add-extension-a').append('add to firefox');
         }
 
