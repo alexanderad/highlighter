@@ -116,6 +116,10 @@ nav .input-field label.active i {
   display: none;
 }
 
+.color-black {
+  color: black;
+}
+
 nav .input-field input[type="search"] {
   padding-left: 2.7rem;
 }
@@ -125,11 +129,17 @@ nav .input-field input[type="search"] {
   visibility: hidden;
 }
 
-.error-message i {
+.error-message i,
+.tip-message i {
   padding-right: 0.15rem;
 }
 
-#id-error-message {
+#id-error-message,
+.tip-message {
   font-size: 0.65rem;
   line-height: 0.9rem;
+}
+
+.tip-message {
+  color: gray;
 }

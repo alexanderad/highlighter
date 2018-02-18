@@ -1,6 +1,11 @@
 % rebase('base.tpl', title=title, page_script='read.js')
 
 <div class="container">
+    <div class="row">
+        <h6>
+            <a href="/" class="color-black">High<span class="highlight">light</span>er</a>
+        </h6>
+    </div>
     <div class="row translatable">
         <div class="col s12">
             <h5>{{ title }}</h5>
@@ -21,6 +26,13 @@
             % end
           </ul>
 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <small class="tip-message">
+                <i class="material-icons">info_outline</i><span>highlight word, phrase or sentense to get it translated</span>
+            </small>
         </div>
     </div>
     <div class="translatable">
