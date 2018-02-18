@@ -24,7 +24,10 @@ def detect_language(text):
 def parse():
     url = request.params.get('url').strip()
     if not url:
-        return {'success': False, 'error': 'no url given'}
+        return {
+            'success': False,
+            'error': 'The url parameter passed does not look like a valid URL.'
+        }
 
     url_hash = hashies.md5(url)
     key = 'pages:{}:page_id'.format(url_hash)
@@ -38,8 +41,8 @@ def parse():
         headers={'x-api-key': app.config['mercury.api_key']}
     ).json()
 
-    if data.get('errorMessage'):
-        return {'success': False, 'error': data['errorMessage']}
+    if data.get('error'):
+        return {'success': False, 'error': data['messages']}
 
     page_id = hashies.short_id()
     content = Vacuum(data.get('content')).apply_all()

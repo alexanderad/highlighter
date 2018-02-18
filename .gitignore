@@ -1,6 +1,7 @@
 .env
 *.pyc
 .idea
+.vscode
 app/app.dev.conf
 app/app.prod.conf
 data/*.rdb
