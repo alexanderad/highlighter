@@ -45,7 +45,11 @@ def parse():
         return {'success': False, 'error': data['messages']}
 
     page_id = hashies.short_id()
-    content = Vacuum(data.get('content')).apply_all()
+    content = data.get('content') or ''
+    if not content:
+        return {'success': False, 'error': 'Failed to extract page contents'}
+
+    content = Vacuum(content).apply_all()
 
     # counters
     app.redis.incr('counters:requests:parse')
