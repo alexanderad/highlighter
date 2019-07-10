@@ -9,6 +9,7 @@ from beaker.util import coerce_session_params
 class RouterExt(Router):
     """Extended router to address OPTIONS request at any route in order to
     serve pre-flight requests."""
+
     def match(self, environ):
         if request.method == 'OPTIONS':
             return Route(request.app, None, request.method, lambda: ''), {}
@@ -17,6 +18,7 @@ class RouterExt(Router):
 
 class BottleExt(Bottle):
     """There is no right way to do sessions in micro-framework (c)."""
+
     def __init__(self, *args, **kwargs):
         super(BottleExt, self).__init__(*args, **kwargs)
         self.router = RouterExt()
@@ -63,7 +65,7 @@ class BottleExt(Bottle):
                     if cookie:
                         headers.append(('Set-cookie', cookie))
 
-            self.add_cors_headers(headers)
+            # self.add_cors_headers(headers)
             return start_response(status, headers, exc_info)
 
         return super(BottleExt, self).__call__(environ, session_start_response)

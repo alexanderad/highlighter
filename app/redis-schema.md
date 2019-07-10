@@ -19,3 +19,6 @@
 ## Counters Tree
 * `counters:requests:<view>` -- number of requests served by `view`
 * `counters:characters:translated` -- number of translate characters (to track API limits)
+
+## Words
+* `words:<lang>:<word>` -- `word` entry in `lang`

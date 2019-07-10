@@ -30,7 +30,6 @@ def translate():
     if len(text) > 128:
         return {'success': False, 'error': 'text is too long'}
 
-    # set in stone for now
     source_lang = request.params.get('source_lang')
     dest_lang = request.params.get('dest_lang')
 
