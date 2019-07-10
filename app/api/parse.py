@@ -37,8 +37,7 @@ def parse():
 
     data = requests.get(
         app.config['mercury.parser_endpoint'],
-        params=dict(url=url),
-        headers={'x-api-key': app.config['mercury.api_key']}
+        params=dict(url=url)
     ).json()
 
     if data.get('error'):

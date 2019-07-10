@@ -1,11 +1,11 @@
-FROM python:2.7-slim
+FROM python:2-slim
 
-ADD /app /src/app
-ADD manage.py /src
+ADD app/requirements.txt /app/requirements.txt
+RUN pip install -r /app/requirements.txt
 
-RUN pip install -r /src/app/requirements.txt
+ADD app /app
+ADD manage.py /
 
 EXPOSE 8000
-
-WORKDIR /src
+WORKDIR /
 CMD python manage.py

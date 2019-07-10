@@ -1,16 +1,21 @@
-version: "2"
+version: "3"
 services:
   redis:
     image: redis
     ports:
-      - 6379:6379
+      - 6379
     volumes:
       - ./data:/data
+  mercury:
+    image: okhlopkov/mercury-parser-docker:latest
+    ports:
+      - 3000
   app:
-    image: alexanderad/highlighter:latest
+    build: .
     environment:
       - PRODUCTION=1
     ports:
       - 8000:8000
     depends_on:
       - redis
+      - mercury
