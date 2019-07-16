@@ -21,8 +21,6 @@ def create_app():
     app.setup_sessions(app.config)
     app.redis = redis.StrictRedis(
         host=app.config['redis.host'], port=app.config['redis.port'], db=0)
-    app.redis_words = redis.StrictRedis(
-        host=app.config['redis.host'], port=app.config['redis.port'], db=1)
 
     return app
 

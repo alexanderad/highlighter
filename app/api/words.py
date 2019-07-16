@@ -1,25 +1,33 @@
+import os.path
 import json
 import httplib
 import requests
+import json
+import random
 
 from app import app, request
 from app.ext import decorators
-from app.schemas import WordSchema
 
 
-@app.route('/v1/words', method='POST')
-@decorators.validate(WordSchema)
-def add_word():
-    data = request.data
-    app.redis_words.set(
-        'words:{}:{}'.format(data['lang'], data['word']), json.dumps(data))
-    return {'success': True}
+class Words():
+    def __init__(self):
+        self._db = self._load_db(app.config['words.db'])
+
+    def _load_db(self, db_file):
+        import app as root
+        work_dir = os.path.dirname(root.__file__)
+        with open(os.path.join(work_dir, db_file), 'r') as f:
+            return json.load(f)
+
+    def pick_one(self):
+        return random.choice(self._db['words'])
+
+
+words_db = Words()
 
 
 @app.route('/v1/words/random', method='GET')
 def random_word():
-    key = app.redis_words.randomkey()
-    if key is None:
-        return {'success': False, 'data': None}
-
-    return {'success': True, 'data': json.loads(app.redis_words.get(key))}
+    word = words_db.pick_one()
+    app.redis.incr('counters:words:{}'.format(word['word']))
+    return {'success': True, 'data': word}

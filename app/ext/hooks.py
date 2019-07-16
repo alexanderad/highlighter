@@ -1,4 +1,9 @@
-from .. import app, request
+from .. import app, request, response
+
+
+@app.route('/<:re:.*>', method='OPTIONS')
+def cors():
+    response.headers.update(**app.get_cors_headers())
 
 
 @app.hook('before_request')

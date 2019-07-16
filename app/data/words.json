@@ -1,0 +1,18 @@
+{
+  "words": [
+    {
+      "freq": 38.72,
+      "word": "mogelijk",
+      "pos": "adj",
+      "translation": "possible",
+      "example": "Het is namelijk mogelijk, maar met deze richtlijn hier is het nog niet mogelijk."
+    },
+    {
+      "freq": 48.21,
+      "word": "werken",
+      "pos": "verb",
+      "translation": "to work",
+      "example": "Om dingen open te maken en te laten zien hoe ze werken en waarom ze werken en wat iets is."
+    }
+  ]
+}

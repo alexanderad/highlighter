@@ -6,22 +6,11 @@ from beaker.session import Session, SessionObject
 from beaker.util import coerce_session_params
 
 
-class RouterExt(Router):
-    """Extended router to address OPTIONS request at any route in order to
-    serve pre-flight requests."""
-
-    def match(self, environ):
-        if request.method == 'OPTIONS':
-            return Route(request.app, None, request.method, lambda: ''), {}
-        return super(RouterExt, self).match(environ)
-
-
 class BottleExt(Bottle):
     """There is no right way to do sessions in micro-framework (c)."""
 
     def __init__(self, *args, **kwargs):
         super(BottleExt, self).__init__(*args, **kwargs)
-        self.router = RouterExt()
         dir_path = os.path.dirname(os.path.realpath(__file__))
         bottle.TEMPLATE_PATH = [os.path.join(dir_path, '..', 'templates/')]
 
@@ -41,15 +30,14 @@ class BottleExt(Bottle):
         # coerce and validate session params
         coerce_session_params(self.session_options)
 
-    def add_cors_headers(self, headers):
-        """Add CORS headers."""
-        headers.append(('Access-Control-Allow-Origin',
-                        request.app.config['app.access_control_allow_origin']))
-        headers.append(('Access-Control-Allow-Methods',
-                        'GET, POST, PUT, DELETE, OPTIONS'))
-        headers.append(('Access-Control-Allow-Headers',
-                        'Authorization, Content-Type, Accept'))
-        headers.append(('Access-Control-Allow-Credentials', 'true'))
+    def get_cors_headers(self):
+        """Get CORS headers."""
+        return {
+            'Access-Control-Allow-Origin': request.app.config['app.access_control_allow_origin'],
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Authorization, Content-Type, Accept',
+            'Access-Control-Allow-Credentials': 'true'
+        }
 
     def __call__(self, environ, start_response):
         session = SessionObject(environ, **self.session_options)
@@ -65,7 +53,6 @@ class BottleExt(Bottle):
                     if cookie:
                         headers.append(('Set-cookie', cookie))
 
-            # self.add_cors_headers(headers)
             return start_response(status, headers, exc_info)
 
         return super(BottleExt, self).__call__(environ, session_start_response)

@@ -12,7 +12,15 @@
     "default_icon": "icons/icon128.png",
     "default_title": "Click to send this page to Highlighter!"
   },
-  "permissions": ["contextMenus", "activeTab"],
+  "chrome_url_overrides": {
+    "newtab": "newtab/index.html"
+  },
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "http://localhost/*",
+    "https://highlighter.alpaca.engineering/*"
+  ],
   "background": {
     "persistent": false,
     "scripts": ["background.js"]
