@@ -4,6 +4,7 @@ import httplib
 import requests
 import json
 import random
+import csv
 
 from app import app, request
 from app.ext import decorators
@@ -17,7 +18,10 @@ class Words():
         import app as root
         work_dir = os.path.dirname(root.__file__)
         with open(os.path.join(work_dir, db_file), 'r') as f:
-            return json.load(f)
+            if db_file.endswith('.json'):
+                return json.load(f)
+
+            return {'words': [x for x in csv.DictReader(f)]}
 
     def pick_one(self):
         return random.choice(self._db['words'])

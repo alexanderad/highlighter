@@ -1,6 +1,6 @@
 (function() {
   function fetchWord() {
-    fetch("https://highlighter.alpaca.engineering/v1/words/random")
+    fetch("http://highlighter.alpaca.engineering/v1/words/random")
       .then(response => response.json())
       .then(json => {
         drawWord(json["data"]);
