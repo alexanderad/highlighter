@@ -63,6 +63,8 @@ def parse():
     app.redis.set('pages:{}:domain'.format(page_id), data.get('domain'))
     app.redis.set('pages:{}:lang'.format(page_id), detect_language(content))
     app.redis.set(
-        'pages:{}:next_page_url'.format(page_id), data.get('next_page_url'))
+        'pages:{}:next_page_url'.format(page_id),
+        data.get('next_page_url', '')
+    )
 
     return {'success': True, 'page_id': page_id, 'cache': 'miss'}
