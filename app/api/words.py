@@ -32,6 +32,6 @@ words_db = Words()
 
 @app.route('/v1/words/random', method='GET')
 def random_word():
-    word = words_db.pick_one()
+        word = words_db.pick_one()
     app.redis.incr('counters:words:{}'.format(word['word']))
     return {'success': True, 'data': word}

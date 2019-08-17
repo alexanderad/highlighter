@@ -1,29 +1,25 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>New Tab</title>
-    <link rel="stylesheet" href="styles.css?v=1" />
-  </head>
-
-  <div>
-    <h1 id="id-word" style="display: inline"></h1>
-    <h1 id="id-translation" style="display: inline; color: grey"></h1>
-  </div>
-
-  <div>
-    <h3 id="id-pos" style="display: inline"></h3>
-    <h3
-      id="id-example"
-      style="display: inline; font-style: italic; font-weight: normal"
-    ></h3>
-  </div>
-
-  <div>
-    <h5 id="id-freq" style="display: inline"></h5>
-  </div>
-
-  <body>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Playfair+Display|Roboto:400,400i,500,500i,700,700i&display=swap"
+      rel="stylesheet"
+    />
     <script src="scripts.js?v=1"></script>
+  </head>
+  <body>
+    <section class="container">
+      <div class="text">
+        <div class="dutch-word" id="id-word">&nbsp;</div>
+        <div class="english-word" id="id-translation">&nbsp;</div>
+        <div class="example" id="id-example">&nbsp;</div>
+        <div class="meta" id="id-meta">&nbsp;</div>
+      </div>
+    </section>
   </body>
 </html>

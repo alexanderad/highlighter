@@ -7,19 +7,34 @@
       });
   }
 
+  function pronounce(text) {
+    var u = new SpeechSynthesisUtterance();
+    u.text = text;
+    u.rate = 0.75;
+    u.lang = "nl-NL";
+    speechSynthesis.speak(u);
+  }
+
   function drawWord(data) {
-    console.log(data);
-    ["word", "pos", "freq", "translation"].forEach(element => {
+    ["word", "translation"].forEach(element => {
       document.getElementById("id-" + element).innerText = data[element];
     });
+    document.getElementById("id-word").addEventListener("click", function(el) {
+      pronounce(data["word"]);
+    });
+    document.getElementById("id-example").innerHTML = data["example"];
+    document.getElementById("id-example").addEventListener(
+      "click",
+      function(el) {
+        pronounce(data["example"]);
+      },
+      false
+    );
 
-    document.getElementById("id-example").innerHTML =
-      '"' +
-      data["example"].replace(
-        new RegExp(data["word"], "g"),
-        "<b>" + data["word"] + "</b>"
-      ) +
-      '"';
+    document.getElementById("id-meta").innerText = [
+      data["pos"],
+      data["freq"]
+    ].join(", ");
   }
 
   fetchWord();

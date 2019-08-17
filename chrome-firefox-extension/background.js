@@ -10,6 +10,7 @@ function getRootNamespace() {
   }
 }
 
+var installationID;
 var rootNamespace = getRootNamespace();
 
 function openHighlighterTab(url, set_active) {
@@ -19,16 +20,16 @@ function openHighlighterTab(url, set_active) {
   });
 }
 
-rootNamespace.contextMenus.create({
-  id: "id-open-link-in-highlighter",
-  title: "Send to Highlighter",
-  contexts: ["link"]
-});
-
 rootNamespace.browserAction.onClicked.addListener(function(tab) {
   openHighlighterTab(tab.url, true);
 });
 
-rootNamespace.contextMenus.onClicked.addListener(function(info, tab) {
-  openHighlighterTab(info.linkUrl, false);
+rootNamespace.storage.sync.get("installationID", function(items) {
+  installationID = items.installationID;
+  if (!items.installationID) {
+    installationID = Math.random()
+      .toString(16)
+      .substr(2, 10);
+    chrome.storage.sync.set({ installationID: installationID });
+  }
 });

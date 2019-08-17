@@ -35,10 +35,14 @@ def parse():
     if page_id:
         return {'success': True, 'page_id': page_id, 'cache': 'hit'}
 
-    data = requests.get(
+    response = requests.get(
         app.config['mercury.parser_endpoint'],
         params=dict(url=url)
-    ).json()
+    )
+    try:
+        data = response.json()
+    except Exception as e:
+        return {'success': False, 'error': response.text}
 
     if data.get('error'):
         return {'success': False, 'error': data['messages']}
@@ -57,10 +61,12 @@ def parse():
     app.redis.set(key, page_id)
     app.redis.lpush('pages:recent', page_id)
     app.redis.set('pages:{}'.format(page_id), url)
-    app.redis.set('pages:{}:title'.format(page_id), data.get('title'))
+    app.redis.set('pages:{}:title'.format(page_id),
+                  data.get('title', 'No title'))
     app.redis.set('pages:{}:content'.format(page_id), content)
-    app.redis.set('pages:{}:image'.format(page_id), data.get('lead_image_url'))
-    app.redis.set('pages:{}:domain'.format(page_id), data.get('domain'))
+    app.redis.set('pages:{}:image'.format(page_id),
+                  data.get('lead_image_url', ''))
+    app.redis.set('pages:{}:domain'.format(page_id), data.get('domain', ''))
     app.redis.set('pages:{}:lang'.format(page_id), detect_language(content))
     app.redis.set(
         'pages:{}:next_page_url'.format(page_id),
