@@ -1,5 +1,6 @@
 import httplib
 import requests
+import subprocess
 
 from app import app, request
 from app.misc import hashies
@@ -35,14 +36,11 @@ def parse():
     if page_id:
         return {'success': True, 'page_id': page_id, 'cache': 'hit'}
 
-    response = requests.get(
-        app.config['mercury.parser_endpoint'],
-        params=dict(url=url)
-    )
     try:
-        data = response.json()
+        response = subprocess.check_output(["mercury-parser", url])
+        data = json.loads(response.strip())
     except Exception as e:
-        return {'success': False, 'error': response.text}
+        return {'success': False, 'error': repr(e)}
 
     if data.get('error'):
         return {'success': False, 'error': data['messages']}

@@ -23,15 +23,24 @@ class Words():
 
             return {'words': [x for x in csv.DictReader(f)]}
 
-    def pick_one(self):
-        return random.choice(self._db['words'])
+    def pick_one(self, installation_id):
+        word = random.choice(self._db['words'])
+        if word['skip']:
+            return self.pick_one(installation_id)
+
+        if 'noun' in word['pos']:
+            word['word'] = ' '.join(
+                filter(None, [word['noun_article'], word['word']]))
+
+        return word
 
 
 words_db = Words()
 
 
-@app.route('/v1/words/random', method='GET')
+@app.route('/v1/words/random', method='POST')
 def random_word():
-        word = words_db.pick_one()
+    installation_id = request.params.get('installationID', '')
+    word = words_db.pick_one(installation_id)
     app.redis.incr('counters:words:{}'.format(word['word']))
     return {'success': True, 'data': word}

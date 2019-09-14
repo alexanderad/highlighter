@@ -6,10 +6,6 @@ services:
       - 6379
     volumes:
       - ./data:/data
-  mercury:
-    image: okhlopkov/mercury-parser-docker:latest
-    ports:
-      - 3000
   app:
     build: .
     environment:
