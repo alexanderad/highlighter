@@ -28,10 +28,6 @@ class Words():
         if word['skip']:
             return self.pick_one(installation_id)
 
-        if 'noun' in word['pos']:
-            word['word'] = ' '.join(
-                filter(None, [word['noun_article'], word['word']]))
-
         return word
 
 
@@ -42,5 +38,7 @@ words_db = Words()
 def random_word():
     installation_id = request.params.get('installationID', '')
     word = words_db.pick_one(installation_id)
-    app.redis.incr('counters:words:{}'.format(word['word']))
+    word_key = 'counters:words:{}'.format(word['word'])
+    app.redis.incr(word_key)
+    word['seen_times'] = app.redis.get(word_key)
     return {'success': True, 'data': word}

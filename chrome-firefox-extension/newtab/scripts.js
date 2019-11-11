@@ -9,14 +9,20 @@ function pronounce(text) {
 }
 
 function drawWord(data) {
+  document.getElementById("id-translation").innerText = data["translation"];
+  var wordRepr = data["word"];
   console.log(data);
-  ["word", "translation"].forEach(element => {
-    document.getElementById("id-" + element).innerText = data[element];
-  });
+  if (data["pos"].includes("noun")) {
+    wordRepr = `${data["noun_article"]} ${data["word"]}`.trim();
+  }
+  document.getElementById("id-word").innerText = wordRepr;
   document.getElementById("id-word").addEventListener("click", function(el) {
     pronounce(data["word"]);
   });
-  document.getElementById("id-example").innerHTML = data["example"];
+  document.getElementById("id-example").innerHTML = data["example"].replace(
+    data["word"],
+    `<span class="highlight">${data["word"]}</span>`
+  );
   document.getElementById("id-example").addEventListener(
     "click",
     function(el) {
@@ -25,10 +31,9 @@ function drawWord(data) {
     false
   );
 
-  document.getElementById("id-meta").innerText = [
-    data["pos"],
-    data["freq"]
-  ].join(", ");
+  document.getElementById(
+    "id-meta"
+  ).innerHTML = `${data["pos"]} &ndash; ${data["freq"]} in 100 documents &ndash; n = ${data["seen_times"]}`;
 }
 
 function getAPIHost() {

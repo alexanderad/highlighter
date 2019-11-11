@@ -1,8 +1,13 @@
+* {
+  font-family: "Playfair Display", serif;
+}
+
 body {
   height: 100vh;
-  /* display: flex; */
+  display: flex;
   align-content: center;
-  justify-content: center;
+  align-items: center;
+  /* justify-content: center; */
 }
 .vl {
   border-left: 6px solid #fbc02d;
@@ -18,7 +23,7 @@ section {
 
 .dutch-word {
   font-size: 100px;
-  line-height: 100px;
+  line-height: 80px;
   font-family: "Playfair Display", serif;
   margin-right: 25px;
   margin-left: 25px;
@@ -37,22 +42,15 @@ section {
 #id-audio {
   font-size: 20px;
   color: #a3a3a3;
-  font-family: "Roboto", sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
   font-weight: 400;
   margin-left: 25px;
-  font-style: italic;
 }
 
 .meta {
   color: #c5c3c3;
   font-size: 15px;
 }
-
-/*
-.example::before,
-.example::after {
-  content: '"';
-} */
 
 .container {
   /* display: flex; */
@@ -72,7 +70,12 @@ section {
   /* flex-wrap: wrap; */
   align-items: baseline;
   /* width: 60%; */
-  border-left: 6px solid #ffd84d;
+  border-left: 10px solid #ffd84d;
   margin-left: 50px;
-  margin-top: 50px;
+  /* margin-top: 50px; */
+}
+
+.highlight {
+  background-color: #ffd84d2e;
+  font-family: "IBM Plex Sans", sans-serif;
 }
