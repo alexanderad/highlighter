@@ -40,5 +40,5 @@ def random_word():
     word = words_db.pick_one(installation_id)
     word_key = 'counters:words:{}'.format(word['word'])
     app.redis.incr(word_key)
-    word['seen_times'] = app.redis.get(word_key)
+    word['seen_times'] = app.redis.get(word_key) or 0
     return {'success': True, 'data': word}
