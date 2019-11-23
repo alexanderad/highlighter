@@ -1,10 +1,18 @@
 function getAPIHost() {
+  const devHost = "http://localhost:8000";
+  const prodHost = "https://highlighter.alpaca.engineering";
   return new Promise(resolve => {
     chrome.management.getSelf(info => {
       if (info.installType == "development") {
-        resolve("http://localhost:8000");
+        fetch(devHost + "?ping")
+          .then(() => {
+            resolve(devHost);
+          })
+          .catch(() => {
+            resolve(prodHost);
+          });
       } else {
-        resolve("https://highlighter.alpaca.engineering");
+        resolve(prodHost);
       }
     });
   });

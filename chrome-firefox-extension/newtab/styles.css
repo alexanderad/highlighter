@@ -7,23 +7,16 @@ body {
   display: flex;
   align-content: center;
   align-items: center;
-  /* justify-content: center; */
 }
+
 .vl {
   border-left: 6px solid #fbc02d;
   height: 150px;
 }
-/* div {
-  border: dashed 1px red;
-}
-
-section {
-  border: dashed 1px violet;
-} */
 
 .dutch-word {
   font-size: 100px;
-  line-height: 80px;
+  line-height: 90px;
   font-family: "Playfair Display", serif;
   margin-right: 25px;
   margin-left: 25px;
@@ -53,7 +46,6 @@ section {
 }
 
 .container {
-  /* display: flex; */
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
@@ -65,14 +57,9 @@ section {
 }
 
 .text {
-  /* display: flex; */
-  /* justify-content: flex-start; */
-  /* flex-wrap: wrap; */
   align-items: baseline;
-  /* width: 60%; */
   border-left: 10px solid #ffd84d;
   margin-left: 50px;
-  /* margin-top: 50px; */
 }
 
 .highlight {

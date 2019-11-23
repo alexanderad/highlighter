@@ -11,7 +11,6 @@ function pronounce(text) {
 function drawWord(data) {
   document.getElementById("id-translation").innerText = data["translation"];
   var wordRepr = data["word"];
-  console.log(data);
   if (data["pos"].includes("noun")) {
     wordRepr = `${data["noun_article"]} ${data["word"]}`.trim();
   }
@@ -33,16 +32,25 @@ function drawWord(data) {
 
   document.getElementById(
     "id-meta"
-  ).innerHTML = `${data["pos"]} &ndash; ${data["freq"]} in 100 documents &ndash; n = ${data["seen_times"]}`;
+  ).innerHTML = `${data["pos"]} &ndash; ${data["freq"]} in 100 documents`;
+  console.log(`Word "${data["word"]}" seen times: ${data["seen_times"]}`);
 }
 
 function getAPIHost() {
+  const devHost = "http://localhost:8000";
+  const prodHost = "https://highlighter.alpaca.engineering";
   return new Promise(resolve => {
     chrome.management.getSelf(info => {
       if (info.installType == "development") {
-        resolve("http://localhost:8000");
+        fetch(devHost + "?ping")
+          .then(() => {
+            resolve(devHost);
+          })
+          .catch(() => {
+            resolve(prodHost);
+          });
       } else {
-        resolve("https://highlighter.alpaca.engineering");
+        resolve(prodHost);
       }
     });
   });
