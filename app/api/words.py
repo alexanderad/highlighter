@@ -23,10 +23,14 @@ class Words():
 
             return {'words': [x for x in csv.DictReader(f)]}
 
-    def pick_one(self, installation_id):
+    def pick_one(self, redis, installation_id):
         word = random.choice(self._db['words'])
-        if word['skip']:
-            return self.pick_one(installation_id)
+        if any([word.get('is_full_match'), word.get('is_nsfw')]):
+            return self.pick_one(redis, installation_id)
+
+        word_key = 'counters:words:{}'.format(word['word'])
+        redis.incr(word_key)
+        word['seen_times'] = redis.get(word_key) or 0
 
         return word
 
@@ -37,8 +41,5 @@ words_db = Words()
 @app.route('/v1/words/random', method='POST')
 def random_word():
     installation_id = request.params.get('installationID', '')
-    word = words_db.pick_one(installation_id)
-    word_key = 'counters:words:{}'.format(word['word'])
-    app.redis.incr(word_key)
-    word['seen_times'] = app.redis.get(word_key) or 0
+    word = words_db.pick_one(app.redis, installation_id)
     return {'success': True, 'data': word}
