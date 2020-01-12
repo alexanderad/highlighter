@@ -38,7 +38,7 @@ function drawWord(data) {
 
 function getAPIHost() {
   const devHost = "http://localhost:8000";
-  const prodHost = "https://highlighter.alpaca.engineering";
+  const prodHost = "https://highlighter.darednaxella.name";
   return new Promise(resolve => {
     chrome.management.getSelf(info => {
       if (info.installType == "development") {

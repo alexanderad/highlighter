@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Highlighter",
-  "version": "2019.11.23",
+  "version": "2020.01.12",
   "description": "Sends current page to the Highlighter.",
   "icons": {
     "16": "icons/icon16.png",
@@ -19,7 +19,7 @@
     "activeTab",
     "storage",
     "http://localhost/*",
-    "https://highlighter.alpaca.engineering/*"
+    "https://highlighter.darednaxella.name/*"
   ],
   "background": {
     "persistent": false,
