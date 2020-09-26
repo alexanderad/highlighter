@@ -1,16 +1,33 @@
 version: "3"
+
+networks:
+  web:
+    external: true
+  internal:
+    external: false
+
 services:
   redis:
+    labels:
+      - traefik.enable=false
     image: redis
     ports:
       - 6379
     volumes:
       - ./data:/data
+    networks:
+      - internal
   app:
+    labels:
+      - traefik.backend=highlighter
+      - traefik.frontend.rule=Host:highlighter.darednaxella.name
+      - traefik.docker.network=web
+      - traefik.port=8000
     build: .
     environment:
       - PRODUCTION=1
-    ports:
-      - 8000:8000
+    networks:
+      - web
+      - internal
     depends_on:
       - redis
