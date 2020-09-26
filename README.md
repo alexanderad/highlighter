@@ -9,7 +9,7 @@ Ultimate goal is to help learning new language through reading.
 * Python + Bottle.py backend with Redis storage
 * Simple frontend
 * Chrome/Firefox extension
-* Yandex.Translate API
+* Azure Congnitive Services Translator v3.0
 * Docker Compose for deployments
 
 ## Live

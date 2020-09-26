@@ -37,9 +37,10 @@ def read():
     context = {
         key: app.redis.get('{}:{}'.format(root_key, key))
         for key in (
-            'title', 'domain', 'content', 'next_page_url', 'lang'
+            'title', 'domain', 'content', 'lang'
         )
     }
+    context['views'] = app.redis.get('{}:views'.format(root_key))
     context['page_id'] = page_id
     context['url'] = url
     context['dest_langs'] = get_dest_langs(context['lang'])

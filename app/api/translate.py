@@ -3,11 +3,13 @@ import requests
 
 from app import app, request
 from app.misc import hashies
+from app.misc.vacuum import VacuumFull
 
 
 LANGS = {
     'en': 'English',
     'uk': 'Ukrainian',
+    'ru': 'Russian',
     'ro': 'Romanian',
     'nl': 'Dutch',
 }
@@ -20,6 +22,23 @@ def get_dest_langs(source_lang):
         if code != source_lang
     }
 
+
+def detect_language(text, try_again=True):
+    text = VacuumFull(text).apply_all()[:256]
+
+    response = requests.post(
+        '{}/detect?api-version=3.0'.format(app.config['translate.endpoint']),
+        json=[{"Text": text}],
+        headers={
+            'Ocp-Apim-Subscription-Key': app.config['translate.api_key']
+        }
+    ).json()
+    app.redis.incr('counters:requests:detect_language')
+    if 'error' not in response:
+        return response[0].get('language')
+
+    if try_again:
+        return detect_language(text[len(text) / 2: len(text) / 2 + 1024], try_again=False)
 
 @app.route('/v1/translate', method='POST')
 def translate():
@@ -40,17 +59,20 @@ def translate():
     if translated:
         return {'success': True, 'text': translated, 'cache': 'hit'}
 
-    response = requests.get(
-        '{}/translate'.format(app.config['yandex.endpoint']),
-        params=dict(
-            key=app.config['yandex.api_key'],
-            lang='{}-{}'.format(source_lang, dest_lang),
-            text=text
-        )
+    response = requests.post(
+        '{}/translate?api-version=3.0&from={}&to={}'.format(
+            app.config['translate.endpoint'],
+            source_lang,
+            dest_lang
+        ),
+        json=[{"Text": text}],
+        headers={
+            'Ocp-Apim-Subscription-Key': app.config['translate.api_key']
+        }
     ).json()
 
-    if response.get('code') == httplib.OK:
-        translated = response.get('text').pop()
+    if 'error' not in response:
+        translated = response[0].get('translations')[0].get('text')
     else:
         return {'success': False, 'error': response}
 

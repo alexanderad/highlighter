@@ -5,21 +5,8 @@ import json
 
 from app import app, request
 from app.misc import hashies
-from app.misc.vacuum import Vacuum, VacuumFull
-
-
-def detect_language(text):
-    text = VacuumFull(text).apply_all()[:256]
-    response = requests.get(
-        '{}/detect'.format(app.config['yandex.endpoint']),
-        params=dict(
-            key=app.config['yandex.api_key'],
-            text=text
-        )
-    ).json()
-    app.redis.incr('counters:requests:detect_language')
-    if response.get('code') == httplib.OK:
-        return response.get('lang')
+from app.misc.vacuum import Vacuum
+from app.api.translate import detect_language
 
 
 @app.route('/v1/parse', method='POST')
@@ -63,13 +50,7 @@ def parse():
     app.redis.set('pages:{}:title'.format(page_id),
                   data.get('title', 'No title'))
     app.redis.set('pages:{}:content'.format(page_id), content)
-    # app.redis.set('pages:{}:image'.format(page_id),
-    #               data.get('lead_image_url', ''))
     app.redis.set('pages:{}:domain'.format(page_id), data.get('domain', ''))
     app.redis.set('pages:{}:lang'.format(page_id), detect_language(content))
-    # app.redis.set(
-    #     'pages:{}:next_page_url'.format(page_id),
-    #     data.get('next_page_url', '')
-    # )
 
     return {'success': True, 'page_id': page_id, 'cache': 'miss'}
