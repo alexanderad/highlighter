@@ -30,7 +30,7 @@ $(function () {
     });
 
     $(document).on('text:wrapped', function (event, text, selectionId) {
-        $.post('/v1/translate', {'text': text, 'source_lang': source_lang, 'dest_lang': dest_lang}, function (response) {
+        $.post('/v1/translate', { 'text': text, 'source_lang': source_lang, 'dest_lang': dest_lang }, function (response) {
             if (response.success) {
                 $(document).trigger('text:translated', [text, response.text, selectionId]);
             } else {
@@ -40,11 +40,11 @@ $(function () {
     });
 
     $(document).on('text:announced_langs', function (event, announced_source_lang, announced_dest_lang) {
-       source_lang = announced_source_lang;
-       dest_lang = announced_dest_lang;
+        source_lang = announced_source_lang;
+        dest_lang = announced_dest_lang;
     });
 
-    $(document).on('tooltip:clicked', function(event, click_event) {
+    $(document).on('tooltip:clicked', function (event, click_event) {
         var tooltip = $(click_event.currentTarget);
         tooltip.children().remove();
         tooltip.replaceWith(tooltip.text());
@@ -56,15 +56,16 @@ $(function () {
 
     function processSelection() {
         var selection = window.getSelection();
+        console.log(`Selection is "${selection}"`);
         if (selection.isCollapsed) return;
         var range = selection.getRangeAt(0).cloneRange();
-        var text = selection.toString().trim();
+        // var text = selection.toString().trim();
+        var text = selection.toString();
         if (text.length > 0 && text.length < 128) {
             $(document).trigger('text:selected', [text, selection, range]);
         } else {
             console.log('selected text is too long or empty')
         }
         window.getSelection().empty();
-
     }
 });

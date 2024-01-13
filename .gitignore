@@ -7,3 +7,4 @@ app/app.prod.conf
 app/data/words.csv
 data/*.rdb
 *.zip
+data/etc/

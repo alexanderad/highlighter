@@ -1,33 +1,40 @@
 version: "3"
 
-networks:
-  web:
-    external: true
-  internal:
-    external: false
-
 services:
-  redis:
-    labels:
-      - traefik.enable=false
-    image: redis
+  nginx:
+    image: umputun/nginx-le:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    volumes:
+      - ./data/etc/ssl:/etc/nginx/ssl
+      - ./nginx-service.conf:/etc/nginx/service.conf
     ports:
+      # primary host interface only
+      - "10.0.0.75:80:80"
+      - "10.0.0.75:443:443"
+    environment:
+      - TZ=Europe/Amsterdam
+      - LETSENCRYPT=true
+      - LE_EMAIL=alexander.shchapov@gmail.com
+      - LE_FQDN=highlighter.darednaxella.name
+
+  redis:
+    restart: unless-stopped
+    image: redis:alpine
+    expose:
      - 6379
     volumes:
       - ./data:/data
-    networks:
-      - internal
   app:
-    labels:
-      - traefik.backend=highlighter
-      - traefik.frontend.rule=Host:highlighter.darednaxella.name
-      - traefik.docker.network=web
-      - traefik.port=8000
+    restart: unless-stopped
     build: .
     environment:
       - PRODUCTION=1
-    networks:
-      - web
-      - internal
+    expose:
+      - 8000
     depends_on:
       - redis
