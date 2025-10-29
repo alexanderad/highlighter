@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Highlighter",
-  "version": "2025.03.30",
+  "version": "2025.10.29",
   "description": "Sends current page to the Highlighter.",
   "icons": {
     "16": "icons/icon16.png",
@@ -15,14 +15,8 @@
   "chrome_url_overrides": {
     "newtab": "newtab/index.html"
   },
-  "permissions": [
-    "activeTab",
-    "storage"
-  ],
-  "host_permissions": [
-    "http://localhost/*",
-    "https://highlighter.darednaxella.name/*"
-  ],
+  "permissions": ["activeTab", "storage"],
+  "host_permissions": ["https://highlighter.darednaxella.name/*"],
   "background": {
     "service_worker": "background.js",
     "type": "module"
