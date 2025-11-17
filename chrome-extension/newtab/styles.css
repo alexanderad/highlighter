@@ -66,3 +66,41 @@ body {
   background-color: #ffd84d2e;
   font-family: "IBM Plex Sans", sans-serif;
 }
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #2f2f2d;
+    color: #e8e8e8;
+  }
+
+  .dutch-word {
+    color: #f5f5f5;
+  }
+
+  .english-word {
+    color: #ffd84d;
+  }
+
+  .example,
+  .meta,
+  #id-audio {
+    color: #b8b8b8;
+  }
+
+  .meta {
+    color: #999999;
+  }
+
+  .text {
+    border-left: 10px solid #e6c04d;
+  }
+
+  .vl {
+    border-left: 6px solid #e6c04d;
+  }
+
+  .highlight {
+    background-color: #ffd84d40;
+  }
+}
